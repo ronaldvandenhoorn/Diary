@@ -1,0 +1,10 @@
+{
+"name": "Min Dagbog",
+"short_name": "Dagbog",
+"lang": "da",
+"start_url": "./index.html",
+"display": "standalone",
+"background_color": "#ffffff",
+"theme_color": "#2a7ae2",
+"icons": []
+}
