@@ -9,7 +9,6 @@
 <meta name="theme-color" content="#2a7ae2">
 
 <style>
-/* Base styles */
 :root {
 color-scheme: light dark;
 --bg: #f8f8fa;
@@ -42,7 +41,7 @@ background: var(--bg);
 color: var(--text);
 }
 
-/* Lock screen */
+/* PIN LOCK */
 #lockScreen {
 position: fixed;
 inset: 0;
@@ -68,22 +67,14 @@ border: 1px solid rgba(148, 163, 184, 0.5);
 #lockTitle {
 font-family: Georgia, serif;
 font-size: 1.6rem;
-margin: 0 0 0.25rem;
 text-align: center;
+margin: 0 0 0.25rem;
 }
 
 #lockSubtitle {
-font-size: 0.9rem;
 text-align: center;
 color: #9ca3af;
 margin-bottom: 1.25rem;
-}
-
-#lockModeLabel {
-font-size: 0.95rem;
-text-align: center;
-margin-bottom: 0.35rem;
-color: #cbd5f5;
 }
 
 #pinInput {
@@ -103,7 +94,6 @@ margin-bottom: 0.75rem;
 #lockButtons {
 display: flex;
 gap: 0.75rem;
-margin-top: 0.25rem;
 }
 
 .lock-btn {
@@ -111,19 +101,12 @@ flex: 1;
 border-radius: 999px;
 padding: 0.55rem 0.75rem;
 border: none;
-font-size: 0.9rem;
 cursor: pointer;
-display: inline-flex;
-align-items: center;
-justify-content: center;
-gap: 0.25rem;
-font-weight: 500;
 }
 
 #btnConfirmPin {
 background: linear-gradient(135deg, #2563eb, #38bdf8);
-color: #f9fafb;
-box-shadow: 0 10px 25px #00000066;
+color: #fff;
 }
 
 #btnResetPin {
@@ -132,15 +115,6 @@ color: #9ca3af;
 border: 1px solid #4b5563;
 }
 
-#lockError {
-margin-top: 0.5rem;
-font-size: 0.8rem;
-color: #fecaca;
-text-align: center;
-min-height: 1.2em;
-}
-
-/* App container */
 #app {
 display: none;
 }
@@ -158,14 +132,12 @@ font-family: Georgia, serif;
 
 h1 {
 text-align: center;
-margin-bottom: 0.2em;
 }
 
 #todayDate {
 text-align: center;
-font-size: 1.05em;
-margin-bottom: 0.7em;
 color: var(--muted);
+margin-bottom: 0.7em;
 font-family: Georgia, serif;
 }
 
@@ -173,7 +145,7 @@ font-family: Georgia, serif;
 font-style: italic;
 color: var(--muted);
 margin-bottom: 1em;
-padding: 0.75em 0.9em;
+padding: 0.75em;
 border-left: 3px solid var(--accent);
 background: color-mix(in srgb, var(--bg-section) 85%, var(--accent) 15%);
 border-radius: 6px;
@@ -192,34 +164,35 @@ label {
 font-weight: bold;
 margin-top: 0.9em;
 display: block;
-font-size: 0.95em;
 }
 
 textarea,
 input[type="text"] {
 width: 100%;
-margin-top: 0.25em;
-margin-bottom: 0.8em;
-padding: 0.5em 0.6em;
+padding: 0.5em;
 border-radius: 6px;
 border: 1px solid var(--border-soft);
 background: var(--bg);
 color: var(--text);
+margin-bottom: 0.8em;
 }
 
-.checkbox-group label {
-font-weight: normal;
-margin-top: 0.35em;
-}
-
-button {
-background: var(--accent);
-color: #fff;
-border: none;
-padding: 0.7em 1.5em;
-border-radius: 5px;
-font-size: 1em;
+.mood-options {
+display: flex;
+justify-content: space-between;
+margin-top: 0.5em;
+font-size: 1.8rem;
 cursor: pointer;
+}
+
+.mood-option {
+opacity: 0.5;
+transition: 0.2s;
+}
+
+.mood-option.selected {
+opacity: 1;
+transform: scale(1.2);
 }
 
 .entry {
@@ -265,36 +238,47 @@ border: 1px solid var(--border-soft);
 <!-- VALUES -->
 <div class="section">
 <h2>Values</h2>
-<div class="checkbox-group">
 <label><input type="checkbox" name="values" value="Fearlessness & Respect"> Fearlessness & Respect</label>
 <label><input type="checkbox" name="values" value="Gratitude & Sincerity"> Gratitude & Sincerity</label>
 <label><input type="checkbox" name="values" value="Humility & Trustworthiness"> Humility & Trustworthiness</label>
 <label><input type="checkbox" name="values" value="Love & Hope"> Love & Hope</label>
 <label><input type="checkbox" name="values" value="Perform & Produce"> Perform & Produce</label>
 </div>
-</div>
 
 <!-- FITNESS -->
 <div class="section">
 <h2>Fitness</h2>
 
-<label>Body (food & exercise)</label>
+<label>Body</label>
 <input type="text" name="body">
 
-<label>Mind (reading & coaching)</label>
+<label>Mind</label>
 <input type="text" name="mind">
 
-<label>Heart (relationships & service)</label>
+<label>Heart</label>
 <input type="text" name="heart">
 
-<label>Soul (journaling & music)</label>
+<label>Soul</label>
 <input type="text" name="soul">
+</div>
+
+<!-- MOOD TRACKER -->
+<div class="section">
+<h2>Mood</h2>
+<div class="mood-options">
+<span class="mood-option" data-mood="😄">😄</span>
+<span class="mood-option" data-mood="🙂">🙂</span>
+<span class="mood-option" data-mood="😐">😐</span>
+<span class="mood-option" data-mood="🙁">🙁</span>
+<span class="mood-option" data-mood="😢">😢</span>
+</div>
+<input type="hidden" name="mood" id="moodInput">
 </div>
 
 <!-- ENTRY -->
 <div class="section">
 <h2>Entry</h2>
-<textarea name="diaryEntry" rows="4" placeholder="Write today's thoughts..."></textarea>
+<textarea name="diaryEntry" rows="4"></textarea>
 </div>
 
 <!-- EFFECTIVENESS -->
@@ -310,13 +294,13 @@ border: 1px solid var(--border-soft);
 <label>Gratitude 3</label>
 <input type="text" name="grat3">
 
-<label>Today's act of kindness</label>
+<label>Kindness</label>
 <textarea name="kindness" rows="2"></textarea>
 
-<label>Commitments / Challenges</label>
+<label>Commitments</label>
 <textarea name="commitments" rows="2"></textarea>
 
-<label>Goals & Planning</label>
+<label>Goals</label>
 <textarea name="goals" rows="2"></textarea>
 </div>
 
@@ -378,7 +362,7 @@ pinInput.value = "";
 
 initLock();
 
-/* APP LOGIC */
+/* DATE */
 document.getElementById("todayDate").textContent =
 new Date().toLocaleDateString("en-US", {
 weekday: "long",
@@ -387,6 +371,7 @@ month: "long",
 day: "numeric"
 });
 
+/* QUOTES */
 const quotes = [
 "Seek, find, and make a decisive impact to brighten the day and improve the world!",
 "I promote equality, tolerance, and sound judgment – humbly and responsibly.",
@@ -398,6 +383,19 @@ const quotes = [
 document.getElementById("quote").textContent =
 quotes[Math.floor(Math.random() * quotes.length)];
 
+/* MOOD TRACKER */
+const moodOptions = document.querySelectorAll(".mood-option");
+const moodInput = document.getElementById("moodInput");
+
+moodOptions.forEach(opt => {
+opt.addEventListener("click", () => {
+moodOptions.forEach(o => o.classList.remove("selected"));
+opt.classList.add("selected");
+moodInput.value = opt.dataset.mood;
+});
+});
+
+/* SAVE + LOAD ENTRIES */
 const form = document.getElementById("diaryForm");
 const entriesDiv = document.getElementById("entries");
 
@@ -410,7 +408,8 @@ const div = document.createElement("div");
 div.className = "entry";
 
 div.innerHTML = `
-<b>${entry.date}</b><br><br>
+<b>${entry.date}</b><br>
+<b>Mood:</b> ${entry.mood || "—"}<br><br>
 <b>Values:</b> ${entry.values.join(", ")}<br>
 <b>Body:</b> ${entry.body}<br>
 <b>Mind:</b> ${entry.mind}<br>
@@ -446,6 +445,7 @@ body: data.get("body") || "",
 mind: data.get("mind") || "",
 heart: data.get("heart") || "",
 soul: data.get("soul") || "",
+mood: data.get("mood") || "",
 diaryEntry: data.get("diaryEntry") || "",
 grat1: data.get("grat1") || "",
 grat2: data.get("grat2") || "",
@@ -460,6 +460,7 @@ entries.push(entry);
 localStorage.setItem("diaryEntries", JSON.stringify(entries));
 
 form.reset();
+moodOptions.forEach(o => o.classList.remove("selected"));
 loadEntries();
 alert("Today's entry has been saved!");
 };
