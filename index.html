@@ -9,22 +9,80 @@
 <meta name="theme-color" content="#2a7ae2">
 
 <style>
-body { font-family: Arial, sans-serif; margin: 0; background: #f8f8fa; color: #222; }
-.container { max-width: 500px; margin: 0 auto; padding: 1em; }
-h1, h2 { color: #2a7ae2; }
-label { font-weight: bold; margin-top: 1em; display: block; }
-textarea, input[type="text"] { width: 100%; margin-bottom: 1em; box-sizing: border-box; }
-.section { background: #fff; border-radius: 8px; padding: 1em; margin-bottom: 1em; box-shadow: 0 2px 8px #0001; }
-.checkbox-group label { font-weight: normal; }
-button { background: #2a7ae2; color: #fff; border: none; padding: 0.7em 1.5em; border-radius: 5px; font-size: 1em; cursor: pointer; }
-.history { margin-top: 2em; }
-.entry { background: #eaf3ff; border-radius: 6px; padding: 0.7em; margin-bottom: 1em; }
-.quote { font-style: italic; color: #555; margin-bottom: 1em; }
+body {
+font-family: Arial, sans-serif;
+margin: 0;
+background: #f8f8fa;
+color: #222;
+}
+.container {
+max-width: 500px;
+margin: 0 auto;
+padding: 1em;
+}
+h1, h2 {
+color: #2a7ae2;
+font-family: Georgia, serif;
+}
+#todayDate {
+text-align: center;
+font-size: 1.1em;
+margin-bottom: 1em;
+color: #444;
+font-family: Georgia, serif;
+}
+label {
+font-weight: bold;
+margin-top: 1em;
+display: block;
+}
+textarea, input[type="text"] {
+width: 100%;
+margin-bottom: 1em;
+box-sizing: border-box;
+}
+.section {
+background: #fff;
+border-radius: 8px;
+padding: 1em;
+margin-bottom: 1em;
+box-shadow: 0 2px 8px #0001;
+}
+.checkbox-group label {
+font-weight: normal;
+}
+button {
+background: #2a7ae2;
+color: #fff;
+border: none;
+padding: 0.7em 1.5em;
+border-radius: 5px;
+font-size: 1em;
+cursor: pointer;
+}
+.history {
+margin-top: 2em;
+}
+.entry {
+background: #eaf3ff;
+border-radius: 6px;
+padding: 0.7em;
+margin-bottom: 1em;
+}
+.quote {
+font-style: italic;
+color: #555;
+margin-bottom: 1em;
+}
 </style>
 </head>
 <body>
 <div class="container">
 <h1>My Diary</h1>
+
+<!-- Today's date -->
+<div id="todayDate"></div>
+
 <div class="quote" id="quote"></div>
 
 <form id="diaryForm">
@@ -80,6 +138,16 @@ button { background: #2a7ae2; color: #fff; border: none; padding: 0.7em 1.5em; b
 </div>
 
 <script>
+// Show today's date at the top
+document.getElementById('todayDate').textContent =
+new Date().toLocaleDateString('en-US', {
+weekday: 'long',
+year: 'numeric',
+month: 'long',
+day: 'numeric'
+});
+
+// Quotes
 const quotes = [
 "Seek, find, and make a decisive impact to brighten the day and improve the world!",
 "I promote equality, tolerance, and sound judgment – humbly and responsibly.",
@@ -88,7 +156,8 @@ const quotes = [
 "True to myself & expressing my feelings.",
 "Can do & do it attitude!"
 ];
-document.getElementById('quote').textContent = quotes[Math.floor(Math.random() * quotes.length)];
+document.getElementById('quote').textContent =
+quotes[Math.floor(Math.random() * quotes.length)];
 
 const form = document.getElementById('diaryForm');
 const entriesDiv = document.getElementById('entries');
@@ -120,7 +189,12 @@ e.preventDefault();
 const data = new FormData(form);
 
 const entry = {
-date: new Date().toLocaleDateString('en-US'),
+date: new Date().toLocaleDateString('en-US', {
+weekday: 'long',
+year: 'numeric',
+month: 'long',
+day: 'numeric'
+}),
 values: data.getAll('values'),
 body: data.get('body') || '',
 mind: data.get('mind') || '',
