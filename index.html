@@ -35,10 +35,6 @@ color-scheme: light dark;
 }
 }
 
-* {
-box-sizing: border-box;
-}
-
 body {
 font-family: Arial, sans-serif;
 margin: 0;
@@ -104,11 +100,6 @@ font-weight: bold;
 margin-bottom: 0.75rem;
 }
 
-#pinInput::placeholder {
-letter-spacing: 0.15em;
-color: #4b5563;
-}
-
 #lockButtons {
 display: flex;
 gap: 0.75rem;
@@ -141,13 +132,6 @@ color: #9ca3af;
 border: 1px solid #4b5563;
 }
 
-#lockHint {
-margin-top: 0.6rem;
-font-size: 0.75rem;
-color: #6b7280;
-text-align: center;
-}
-
 #lockError {
 margin-top: 0.5rem;
 font-size: 0.8rem;
@@ -158,7 +142,7 @@ min-height: 1.2em;
 
 /* App container */
 #app {
-display: none; /* Shown after PIN unlock */
+display: none;
 }
 
 .container {
@@ -170,7 +154,6 @@ padding: 1em;
 h1, h2, h3 {
 color: var(--accent);
 font-family: Georgia, serif;
-margin-top: 0;
 }
 
 h1 {
@@ -224,21 +207,9 @@ background: var(--bg);
 color: var(--text);
 }
 
-textarea:focus,
-input[type="text"]:focus,
-#pinInput:focus {
-outline: none;
-border-color: var(--accent);
-box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 70%, transparent 30%);
-}
-
 .checkbox-group label {
 font-weight: normal;
 margin-top: 0.35em;
-}
-
-.checkbox-group input[type="checkbox"] {
-margin-right: 0.35em;
 }
 
 button {
@@ -251,20 +222,6 @@ font-size: 1em;
 cursor: pointer;
 }
 
-button:active {
-transform: translateY(1px);
-box-shadow: 0 1px 3px var(--shadow) inset;
-}
-
-.save-bar {
-text-align: center;
-margin: 1em 0 0;
-}
-
-.history {
-margin-top: 2em;
-}
-
 .entry {
 background: var(--bg-entry);
 border-radius: 6px;
@@ -272,92 +229,42 @@ padding: 0.7em;
 margin-bottom: 1em;
 border: 1px solid var(--border-soft);
 }
-
-.entry b {
-color: var(--accent);
-}
-
-.entry small {
-color: var(--muted);
-}
-
-.entry + .entry {
-margin-top: 0.6em;
-}
-
-.entry-date {
-display: flex;
-justify-content: space-between;
-align-items: baseline;
-margin-bottom: 0.3em;
-}
-
-.pill-label {
-display: inline-block;
-padding: 0.1em 0.5em;
-border-radius: 999px;
-font-size: 0.72em;
-text-transform: uppercase;
-letter-spacing: 0.06em;
-background: color-mix(in srgb, var(--accent) 20%, var(--bg-section) 80%);
-color: var(--muted);
-}
-
-/* Small helper text */
-.helper-text {
-font-size: 0.8em;
-color: var(--muted);
-margin-top: -0.4em;
-margin-bottom: 0.6em;
-}
 </style>
 </head>
+
 <body>
-<!-- Lock screen -->
+
+<!-- PIN LOCK -->
 <div id="lockScreen">
 <div id="lockInner">
 <h1 id="lockTitle">My Diary</h1>
-<div id="lockSubtitle">Protected with a personal PIN on this device</div>
+<div id="lockSubtitle">Protected with a personal PIN</div>
 
 <div id="lockModeLabel">Set a new 4-digit PIN</div>
-<input
-id="pinInput"
-type="password"
-inputmode="numeric"
-maxlength="4"
-autocomplete="off"
-placeholder="••••"
->
+<input id="pinInput" type="password" maxlength="4" inputmode="numeric" placeholder="••••">
 
 <div id="lockButtons">
-<button id="btnConfirmPin" class="lock-btn">
-<span>Confirm</span>
-</button>
-<button id="btnResetPin" class="lock-btn" type="button">
-<span>Reset PIN</span>
-</button>
+<button id="btnConfirmPin" class="lock-btn">Confirm</button>
+<button id="btnResetPin" class="lock-btn">Reset PIN</button>
 </div>
 
-<div id="lockHint">
-Tip: Your iPhone’s own Face ID / passcode still protects access to this app. This PIN is an extra layer inside the diary.
-</div>
 <div id="lockError"></div>
 </div>
 </div>
 
-<!-- App content -->
+<!-- APP -->
 <div id="app">
 <div class="container">
+
 <h1>My Diary</h1>
 <div id="todayDate"></div>
 <div class="quote" id="quote"></div>
 
 <form id="diaryForm">
-<!-- Reflections: Values + Fitness -->
-<div class="section">
-<h2>Reflections</h2>
 
-<h3>Values</h3>
+<!-- VALUES -->
+<div class="section">
+<h2>Values</h2>
 <div class="checkbox-group">
 <label><input type="checkbox" name="values" value="Fearlessness & Respect"> Fearlessness & Respect</label>
 <label><input type="checkbox" name="values" value="Gratitude & Sincerity"> Gratitude & Sincerity</label>
@@ -365,9 +272,11 @@ Tip: Your iPhone’s own Face ID / passcode still protects access to this app. T
 <label><input type="checkbox" name="values" value="Love & Hope"> Love & Hope</label>
 <label><input type="checkbox" name="values" value="Perform & Produce"> Perform & Produce</label>
 </div>
+</div>
 
-<h3>Fitness</h3>
-<p class="helper-text">Body, mind, heart and soul – how did you nurture each today?</p>
+<!-- FITNESS -->
+<div class="section">
+<h2>Fitness</h2>
 
 <label>Body (food & exercise)</label>
 <input type="text" name="body">
@@ -382,19 +291,24 @@ Tip: Your iPhone’s own Face ID / passcode still protects access to this app. T
 <input type="text" name="soul">
 </div>
 
-<!-- Entry section -->
+<!-- ENTRY -->
 <div class="section">
 <h2>Entry</h2>
-<label>Today's diary entry</label>
-<textarea name="diaryEntry" rows="4" placeholder="Capture today's story, thoughts, turning points..."></textarea>
+<textarea name="diaryEntry" rows="4" placeholder="Write today's thoughts..."></textarea>
 </div>
 
-<!-- Effectiveness section -->
+<!-- EFFECTIVENESS -->
 <div class="section">
 <h2>Effectiveness</h2>
 
-<label>3 things I am grateful for</label>
-<textarea name="gratitude" rows="2"></textarea>
+<label>Gratitude 1</label>
+<input type="text" name="grat1">
+
+<label>Gratitude 2</label>
+<input type="text" name="grat2">
+
+<label>Gratitude 3</label>
+<input type="text" name="grat3">
 
 <label>Today's act of kindness</label>
 <textarea name="kindness" rows="2"></textarea>
@@ -406,105 +320,73 @@ Tip: Your iPhone’s own Face ID / passcode still protects access to this app. T
 <textarea name="goals" rows="2"></textarea>
 </div>
 
-<div class="save-bar">
 <button type="submit">Save today's entry</button>
-</div>
 </form>
 
 <div class="history">
 <h2>Previous Entries</h2>
 <div id="entries"></div>
 </div>
+
 </div>
 </div>
 
 <script>
-// ---------- PIN LOCK LOGIC ----------
-const PIN_KEY = 'diaryPin_v1';
-const lockScreen = document.getElementById('lockScreen');
-const app = document.getElementById('app');
-const pinInput = document.getElementById('pinInput');
-const btnConfirmPin = document.getElementById('btnConfirmPin');
-const btnResetPin = document.getElementById('btnResetPin');
-const lockModeLabel = document.getElementById('lockModeLabel');
-const lockError = document.getElementById('lockError');
+/* PIN LOCK */
+const PIN_KEY = "diaryPin_v1";
+const lockScreen = document.getElementById("lockScreen");
+const app = document.getElementById("app");
+const pinInput = document.getElementById("pinInput");
+const btnConfirmPin = document.getElementById("btnConfirmPin");
+const btnResetPin = document.getElementById("btnResetPin");
+const lockModeLabel = document.getElementById("lockModeLabel");
+const lockError = document.getElementById("lockError");
 
-function setModeLabel(isSetup) {
-lockModeLabel.textContent = isSetup
-? 'Set a new 4-digit PIN'
-: 'Enter your 4-digit PIN';
-}
-
-function showError(msg) {
-lockError.textContent = msg;
-}
-
-function clearError() {
-lockError.textContent = '';
-}
-
-function unlockApp() {
-lockScreen.style.display = 'none';
-app.style.display = 'block';
+function unlock() {
+lockScreen.style.display = "none";
+app.style.display = "block";
 }
 
 function initLock() {
-const storedPin = localStorage.getItem(PIN_KEY);
-const isSetup = !storedPin;
-setModeLabel(isSetup);
-clearError();
-pinInput.value = '';
-pinInput.focus();
+const stored = localStorage.getItem(PIN_KEY);
+lockModeLabel.textContent = stored ? "Enter your 4-digit PIN" : "Set a new 4-digit PIN";
 
-btnConfirmPin.onclick = function () {
-clearError();
-const entered = (pinInput.value || '').trim();
-
-if (entered.length !== 4 || !/^[0-9]{4}$/.test(entered)) {
-showError('Please enter a 4-digit PIN (numbers only).');
+btnConfirmPin.onclick = () => {
+const entered = pinInput.value.trim();
+if (entered.length !== 4) {
+lockError.textContent = "PIN must be 4 digits.";
 return;
 }
 
-const currentStoredPin = localStorage.getItem(PIN_KEY);
+const saved = localStorage.getItem(PIN_KEY);
 
-if (!currentStoredPin) {
-// First-time setup
+if (!saved) {
 localStorage.setItem(PIN_KEY, entered);
-unlockApp();
+unlock();
 } else {
-// Verify
-if (entered === currentStoredPin) {
-unlockApp();
-} else {
-showError('Incorrect PIN. Try again.');
-pinInput.value = '';
-pinInput.focus();
-}
+if (entered === saved) unlock();
+else lockError.textContent = "Incorrect PIN.";
 }
 };
 
-btnResetPin.onclick = function () {
+btnResetPin.onclick = () => {
 localStorage.removeItem(PIN_KEY);
-setModeLabel(true);
-clearError();
-pinInput.value = '';
-pinInput.focus();
+lockModeLabel.textContent = "Set a new 4-digit PIN";
+pinInput.value = "";
 };
 }
 
 initLock();
 
-// ---------- APP LOGIC ----------
-// Date at top
-const todayDateEl = document.getElementById('todayDate');
-todayDateEl.textContent = new Date().toLocaleDateString('en-US', {
-weekday: 'long',
-year: 'numeric',
-month: 'long',
-day: 'numeric'
+/* APP LOGIC */
+document.getElementById("todayDate").textContent =
+new Date().toLocaleDateString("en-US", {
+weekday: "long",
+year: "numeric",
+month: "long",
+day: "numeric"
 });
 
-// Quotes
 const quotes = [
 "Seek, find, and make a decisive impact to brighten the day and improve the world!",
 "I promote equality, tolerance, and sound judgment – humbly and responsibly.",
@@ -513,74 +395,69 @@ const quotes = [
 "True to myself & expressing my feelings.",
 "Can do & do it attitude!"
 ];
-document.getElementById('quote').textContent =
+document.getElementById("quote").textContent =
 quotes[Math.floor(Math.random() * quotes.length)];
 
-const form = document.getElementById('diaryForm');
-const entriesDiv = document.getElementById('entries');
+const form = document.getElementById("diaryForm");
+const entriesDiv = document.getElementById("entries");
 
 function loadEntries() {
-entriesDiv.innerHTML = '';
-const entries = JSON.parse(localStorage.getItem('diaryEntries') || '[]');
+entriesDiv.innerHTML = "";
+const entries = JSON.parse(localStorage.getItem("diaryEntries") || "[]");
 
 entries.slice().reverse().forEach(entry => {
-const div = document.createElement('div');
-div.className = 'entry';
+const div = document.createElement("div");
+div.className = "entry";
 
-const datePart = `
-<div class="entry-date">
-<b>${entry.date}</b>
-<span class="pill-label">Reflections</span>
-</div>
+div.innerHTML = `
+<b>${entry.date}</b><br><br>
+<b>Values:</b> ${entry.values.join(", ")}<br>
+<b>Body:</b> ${entry.body}<br>
+<b>Mind:</b> ${entry.mind}<br>
+<b>Heart:</b> ${entry.heart}<br>
+<b>Soul:</b> ${entry.soul}<br><br>
+<b>Entry:</b> ${entry.diaryEntry}<br><br>
+<b>Gratitude:</b><br>
+1) ${entry.grat1}<br>
+2) ${entry.grat2}<br>
+3) ${entry.grat3}<br><br>
+<b>Kindness:</b> ${entry.kindness}<br>
+<b>Commitments:</b> ${entry.commitments}<br>
+<b>Goals:</b> ${entry.goals}
 `;
-
-const values = entry.values && entry.values.length
-? entry.values.join(', ')
-: '—';
-
-div.innerHTML =
-datePart +
-`<b>Values:</b> ${values}<br>
-<b>Body:</b> ${entry.body || ''}<br>
-<b>Mind:</b> ${entry.mind || ''}<br>
-<b>Heart:</b> ${entry.heart || ''}<br>
-<b>Soul:</b> ${entry.soul || ''}<br><br>
-<b>Entry:</b> ${entry.diaryEntry || ''}<br><br>
-<b>Gratitude:</b> ${entry.gratitude || ''}<br>
-<b>Kindness:</b> ${entry.kindness || ''}<br>
-<b>Commitments:</b> ${entry.commitments || ''}<br>
-<b>Goals:</b> ${entry.goals || ''}`;
 
 entriesDiv.appendChild(div);
 });
 }
 
-form.onsubmit = function (e) {
+form.onsubmit = e => {
 e.preventDefault();
 const data = new FormData(form);
 
 const entry = {
-date: new Date().toLocaleDateString('en-US', {
-weekday: 'long',
-year: 'numeric',
-month: 'long',
-day: 'numeric'
+date: new Date().toLocaleDateString("en-US", {
+weekday: "long",
+year: "numeric",
+month: "long",
+day: "numeric"
 }),
-values: data.getAll('values'),
-body: data.get('body') || '',
-mind: data.get('mind') || '',
-heart: data.get('heart') || '',
-soul: data.get('soul') || '',
-diaryEntry: data.get('diaryEntry') || '',
-gratitude: data.get('gratitude') || '',
-kindness: data.get('kindness') || '',
-commitments: data.get('commitments') || '',
-goals: data.get('goals') || ''
+values: data.getAll("values"),
+body: data.get("body") || "",
+mind: data.get("mind") || "",
+heart: data.get("heart") || "",
+soul: data.get("soul") || "",
+diaryEntry: data.get("diaryEntry") || "",
+grat1: data.get("grat1") || "",
+grat2: data.get("grat2") || "",
+grat3: data.get("grat3") || "",
+kindness: data.get("kindness") || "",
+commitments: data.get("commitments") || "",
+goals: data.get("goals") || ""
 };
 
-const entries = JSON.parse(localStorage.getItem('diaryEntries') || '[]');
+const entries = JSON.parse(localStorage.getItem("diaryEntries") || "[]");
 entries.push(entry);
-localStorage.setItem('diaryEntries', JSON.stringify(entries));
+localStorage.setItem("diaryEntries", JSON.stringify(entries));
 
 form.reset();
 loadEntries();
@@ -589,10 +466,10 @@ alert("Today's entry has been saved!");
 
 loadEntries();
 
-// Service worker registration (for PWA/offline)
-if ('serviceWorker' in navigator) {
-navigator.serviceWorker.register('sw.js');
+if ("serviceWorker" in navigator) {
+navigator.serviceWorker.register("sw.js");
 }
 </script>
+
 </body>
 </html>
