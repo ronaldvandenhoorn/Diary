@@ -146,9 +146,9 @@ font-style: italic;
 color: var(--muted);
 margin-bottom: 1em;
 padding: 0.75em;
-border-left: 3px solid var(--accent);
-background: color-mix(in srgb, var(--bg-section) 85%, var(--accent) 15%);
+background: var(--bg-section);
 border-radius: 6px;
+text-align: center;
 }
 
 .section {
@@ -158,6 +158,13 @@ padding: 1em;
 margin-bottom: 1em;
 box-shadow: 0 2px 10px var(--shadow);
 border: 1px solid var(--border-soft);
+}
+
+.helper-text {
+font-size: 0.85em;
+color: var(--muted);
+margin-top: -0.4em;
+margin-bottom: 0.8em;
 }
 
 label {
@@ -193,6 +200,18 @@ transition: 0.2s;
 .mood-option.selected {
 opacity: 1;
 transform: scale(1.2);
+}
+
+button {
+background: var(--accent);
+color: #fff;
+border: none;
+padding: 1em 1.5em;
+border-radius: 8px;
+font-size: 1.1em;
+cursor: pointer;
+width: 100%;
+margin-top: 1em;
 }
 
 .entry {
@@ -238,6 +257,8 @@ border: 1px solid var(--border-soft);
 <!-- VALUES -->
 <div class="section">
 <h2>Values</h2>
+<div class="helper-text">Did I live up to my values?</div>
+
 <label><input type="checkbox" name="values" value="Fearlessness & Respect"> Fearlessness & Respect</label>
 <label><input type="checkbox" name="values" value="Gratitude & Sincerity"> Gratitude & Sincerity</label>
 <label><input type="checkbox" name="values" value="Humility & Trustworthiness"> Humility & Trustworthiness</label>
@@ -248,6 +269,7 @@ border: 1px solid var(--border-soft);
 <!-- FITNESS -->
 <div class="section">
 <h2>Fitness</h2>
+<div class="helper-text">Did I stay fit?</div>
 
 <label>Body</label>
 <input type="text" name="body">
@@ -262,9 +284,11 @@ border: 1px solid var(--border-soft);
 <input type="text" name="soul">
 </div>
 
-<!-- MOOD TRACKER -->
+<!-- MOOD -->
 <div class="section">
 <h2>Mood</h2>
+<div class="helper-text">How was my mood?</div>
+
 <div class="mood-options">
 <span class="mood-option" data-mood="😄">😄</span>
 <span class="mood-option" data-mood="🙂">🙂</span>
