@@ -9,50 +9,240 @@
 <meta name="theme-color" content="#2a7ae2">
 
 <style>
+/* Base styles */
+:root {
+color-scheme: light dark;
+--bg: #f8f8fa;
+--bg-section: #ffffff;
+--bg-entry: #eaf3ff;
+--text: #222222;
+--muted: #555555;
+--accent: #2a7ae2;
+--shadow: #00000011;
+--border-soft: #d0d7e2;
+}
+
+@media (prefers-color-scheme: dark) {
+:root {
+--bg: #0f172a;
+--bg-section: #111827;
+--bg-entry: #1e293b;
+--text: #e5e7eb;
+--muted: #9ca3af;
+--accent: #60a5fa;
+--shadow: #00000066;
+--border-soft: #374151;
+}
+}
+
+* {
+box-sizing: border-box;
+}
+
 body {
 font-family: Arial, sans-serif;
 margin: 0;
-background: #f8f8fa;
-color: #222;
+background: var(--bg);
+color: var(--text);
 }
+
+/* Lock screen */
+#lockScreen {
+position: fixed;
+inset: 0;
+background: radial-gradient(circle at top, #1d4ed8 0, #020617 55%);
+color: #e5e7eb;
+display: flex;
+align-items: center;
+justify-content: center;
+padding: 2rem 1rem;
+z-index: 1000;
+}
+
+#lockInner {
+width: 100%;
+max-width: 360px;
+background: rgba(15, 23, 42, 0.9);
+border-radius: 18px;
+padding: 1.5rem 1.3rem 1.7rem;
+box-shadow: 0 20px 40px #000000aa;
+border: 1px solid rgba(148, 163, 184, 0.5);
+}
+
+#lockTitle {
+font-family: Georgia, serif;
+font-size: 1.6rem;
+margin: 0 0 0.25rem;
+text-align: center;
+}
+
+#lockSubtitle {
+font-size: 0.9rem;
+text-align: center;
+color: #9ca3af;
+margin-bottom: 1.25rem;
+}
+
+#lockModeLabel {
+font-size: 0.95rem;
+text-align: center;
+margin-bottom: 0.35rem;
+color: #cbd5f5;
+}
+
+#pinInput {
+width: 100%;
+font-size: 1.4rem;
+padding: 0.65rem 0.75rem;
+text-align: center;
+border-radius: 10px;
+border: 1px solid #4b5563;
+background: #020617;
+color: #e5e7eb;
+letter-spacing: 0.3em;
+font-weight: bold;
+margin-bottom: 0.75rem;
+}
+
+#pinInput::placeholder {
+letter-spacing: 0.15em;
+color: #4b5563;
+}
+
+#lockButtons {
+display: flex;
+gap: 0.75rem;
+margin-top: 0.25rem;
+}
+
+.lock-btn {
+flex: 1;
+border-radius: 999px;
+padding: 0.55rem 0.75rem;
+border: none;
+font-size: 0.9rem;
+cursor: pointer;
+display: inline-flex;
+align-items: center;
+justify-content: center;
+gap: 0.25rem;
+font-weight: 500;
+}
+
+#btnConfirmPin {
+background: linear-gradient(135deg, #2563eb, #38bdf8);
+color: #f9fafb;
+box-shadow: 0 10px 25px #00000066;
+}
+
+#btnResetPin {
+background: transparent;
+color: #9ca3af;
+border: 1px solid #4b5563;
+}
+
+#lockHint {
+margin-top: 0.6rem;
+font-size: 0.75rem;
+color: #6b7280;
+text-align: center;
+}
+
+#lockError {
+margin-top: 0.5rem;
+font-size: 0.8rem;
+color: #fecaca;
+text-align: center;
+min-height: 1.2em;
+}
+
+/* App container */
+#app {
+display: none; /* Shown after PIN unlock */
+}
+
 .container {
 max-width: 500px;
 margin: 0 auto;
 padding: 1em;
 }
-h1, h2 {
-color: #2a7ae2;
+
+h1, h2, h3 {
+color: var(--accent);
 font-family: Georgia, serif;
+margin-top: 0;
 }
+
+h1 {
+text-align: center;
+margin-bottom: 0.2em;
+}
+
 #todayDate {
 text-align: center;
-font-size: 1.1em;
-margin-bottom: 1em;
-color: #444;
+font-size: 1.05em;
+margin-bottom: 0.7em;
+color: var(--muted);
 font-family: Georgia, serif;
 }
-label {
-font-weight: bold;
-margin-top: 1em;
-display: block;
-}
-textarea, input[type="text"] {
-width: 100%;
+
+.quote {
+font-style: italic;
+color: var(--muted);
 margin-bottom: 1em;
-box-sizing: border-box;
+padding: 0.75em 0.9em;
+border-left: 3px solid var(--accent);
+background: color-mix(in srgb, var(--bg-section) 85%, var(--accent) 15%);
+border-radius: 6px;
 }
+
 .section {
-background: #fff;
-border-radius: 8px;
+background: var(--bg-section);
+border-radius: 10px;
 padding: 1em;
 margin-bottom: 1em;
-box-shadow: 0 2px 8px #0001;
+box-shadow: 0 2px 10px var(--shadow);
+border: 1px solid var(--border-soft);
 }
+
+label {
+font-weight: bold;
+margin-top: 0.9em;
+display: block;
+font-size: 0.95em;
+}
+
+textarea,
+input[type="text"] {
+width: 100%;
+margin-top: 0.25em;
+margin-bottom: 0.8em;
+padding: 0.5em 0.6em;
+border-radius: 6px;
+border: 1px solid var(--border-soft);
+background: var(--bg);
+color: var(--text);
+}
+
+textarea:focus,
+input[type="text"]:focus,
+#pinInput:focus {
+outline: none;
+border-color: var(--accent);
+box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 70%, transparent 30%);
+}
+
 .checkbox-group label {
 font-weight: normal;
+margin-top: 0.35em;
 }
+
+.checkbox-group input[type="checkbox"] {
+margin-right: 0.35em;
+}
+
 button {
-background: #2a7ae2;
+background: var(--accent);
 color: #fff;
 border: none;
 padding: 0.7em 1.5em;
@@ -60,35 +250,114 @@ border-radius: 5px;
 font-size: 1em;
 cursor: pointer;
 }
+
+button:active {
+transform: translateY(1px);
+box-shadow: 0 1px 3px var(--shadow) inset;
+}
+
+.save-bar {
+text-align: center;
+margin: 1em 0 0;
+}
+
 .history {
 margin-top: 2em;
 }
+
 .entry {
-background: #eaf3ff;
+background: var(--bg-entry);
 border-radius: 6px;
 padding: 0.7em;
 margin-bottom: 1em;
+border: 1px solid var(--border-soft);
 }
-.quote {
-font-style: italic;
-color: #555;
-margin-bottom: 1em;
+
+.entry b {
+color: var(--accent);
+}
+
+.entry small {
+color: var(--muted);
+}
+
+.entry + .entry {
+margin-top: 0.6em;
+}
+
+.entry-date {
+display: flex;
+justify-content: space-between;
+align-items: baseline;
+margin-bottom: 0.3em;
+}
+
+.pill-label {
+display: inline-block;
+padding: 0.1em 0.5em;
+border-radius: 999px;
+font-size: 0.72em;
+text-transform: uppercase;
+letter-spacing: 0.06em;
+background: color-mix(in srgb, var(--accent) 20%, var(--bg-section) 80%);
+color: var(--muted);
+}
+
+/* Small helper text */
+.helper-text {
+font-size: 0.8em;
+color: var(--muted);
+margin-top: -0.4em;
+margin-bottom: 0.6em;
 }
 </style>
 </head>
 <body>
+<!-- Lock screen -->
+<div id="lockScreen">
+<div id="lockInner">
+<h1 id="lockTitle">My Diary</h1>
+<div id="lockSubtitle">Protected with a personal PIN on this device</div>
+
+<div id="lockModeLabel">Set a new 4-digit PIN</div>
+<input
+id="pinInput"
+type="password"
+inputmode="numeric"
+maxlength="4"
+autocomplete="off"
+placeholder="••••"
+>
+
+<div id="lockButtons">
+<button id="btnConfirmPin" class="lock-btn">
+<span>Confirm</span>
+</button>
+<button id="btnResetPin" class="lock-btn" type="button">
+<span>Reset PIN</span>
+</button>
+</div>
+
+<div id="lockHint">
+Tip: Your iPhone’s own Face ID / passcode still protects access to this app. This PIN is an extra layer inside the diary.
+</div>
+<div id="lockError"></div>
+</div>
+</div>
+
+<!-- App content -->
+<div id="app">
 <div class="container">
 <h1>My Diary</h1>
-
-<!-- Today's date -->
 <div id="todayDate"></div>
-
 <div class="quote" id="quote"></div>
 
 <form id="diaryForm">
+<!-- Reflections: Values + Fitness -->
 <div class="section">
 <h2>Reflections</h2>
 
+<h3>Values</h3>
 <div class="checkbox-group">
 <label><input type="checkbox" name="values" value="Fearlessness & Respect"> Fearlessness & Respect</label>
 <label><input type="checkbox" name="values" value="Gratitude & Sincerity"> Gratitude & Sincerity</label>
@@ -96,6 +365,9 @@ margin-bottom: 1em;
 <label><input type="checkbox" name="values" value="Love & Hope"> Love & Hope</label>
 <label><input type="checkbox" name="values" value="Perform & Produce"> Perform & Produce</label>
 </div>
+
+<h3>Fitness</h3>
+<p class="helper-text">Body, mind, heart and soul – how did you nurture each today?</p>
 
 <label>Body (food & exercise)</label>
 <input type="text" name="body">
@@ -110,10 +382,16 @@ margin-bottom: 1em;
 <input type="text" name="soul">
 </div>
 
+<!-- Entry section -->
 <div class="section">
-<h2>Today's Diary Entry</h2>
+<h2>Entry</h2>
+<label>Today's diary entry</label>
+<textarea name="diaryEntry" rows="4" placeholder="Capture today's story, thoughts, turning points..."></textarea>
+</div>
 
-<textarea name="diaryEntry" rows="3" placeholder="Write today's thoughts..."></textarea>
+<!-- Effectiveness section -->
+<div class="section">
+<h2>Effectiveness</h2>
 
 <label>3 things I am grateful for</label>
 <textarea name="gratitude" rows="2"></textarea>
@@ -128,7 +406,9 @@ margin-bottom: 1em;
 <textarea name="goals" rows="2"></textarea>
 </div>
 
+<div class="save-bar">
 <button type="submit">Save today's entry</button>
+</div>
 </form>
 
 <div class="history">
@@ -136,11 +416,88 @@ margin-bottom: 1em;
 <div id="entries"></div>
 </div>
 </div>
+</div>
 
 <script>
-// Show today's date at the top
-document.getElementById('todayDate').textContent =
-new Date().toLocaleDateString('en-US', {
+// ---------- PIN LOCK LOGIC ----------
+const PIN_KEY = 'diaryPin_v1';
+const lockScreen = document.getElementById('lockScreen');
+const app = document.getElementById('app');
+const pinInput = document.getElementById('pinInput');
+const btnConfirmPin = document.getElementById('btnConfirmPin');
+const btnResetPin = document.getElementById('btnResetPin');
+const lockModeLabel = document.getElementById('lockModeLabel');
+const lockError = document.getElementById('lockError');
+
+function setModeLabel(isSetup) {
+lockModeLabel.textContent = isSetup
+? 'Set a new 4-digit PIN'
+: 'Enter your 4-digit PIN';
+}
+
+function showError(msg) {
+lockError.textContent = msg;
+}
+
+function clearError() {
+lockError.textContent = '';
+}
+
+function unlockApp() {
+lockScreen.style.display = 'none';
+app.style.display = 'block';
+}
+
+function initLock() {
+const storedPin = localStorage.getItem(PIN_KEY);
+const isSetup = !storedPin;
+setModeLabel(isSetup);
+clearError();
+pinInput.value = '';
+pinInput.focus();
+
+btnConfirmPin.onclick = function () {
+clearError();
+const entered = (pinInput.value || '').trim();
+
+if (entered.length !== 4 || !/^[0-9]{4}$/.test(entered)) {
+showError('Please enter a 4-digit PIN (numbers only).');
+return;
+}
+
+const currentStoredPin = localStorage.getItem(PIN_KEY);
+
+if (!currentStoredPin) {
+// First-time setup
+localStorage.setItem(PIN_KEY, entered);
+unlockApp();
+} else {
+// Verify
+if (entered === currentStoredPin) {
+unlockApp();
+} else {
+showError('Incorrect PIN. Try again.');
+pinInput.value = '';
+pinInput.focus();
+}
+}
+};
+
+btnResetPin.onclick = function () {
+localStorage.removeItem(PIN_KEY);
+setModeLabel(true);
+clearError();
+pinInput.value = '';
+pinInput.focus();
+};
+}
+
+initLock();
+
+// ---------- APP LOGIC ----------
+// Date at top
+const todayDateEl = document.getElementById('todayDate');
+todayDateEl.textContent = new Date().toLocaleDateString('en-US', {
 weekday: 'long',
 year: 'numeric',
 month: 'long',
@@ -169,22 +526,36 @@ const entries = JSON.parse(localStorage.getItem('diaryEntries') || '[]');
 entries.slice().reverse().forEach(entry => {
 const div = document.createElement('div');
 div.className = 'entry';
-div.innerHTML = `<b>${entry.date}</b><br>
-<b>Values:</b> ${entry.values.join(', ')}<br>
-<b>Body:</b> ${entry.body}<br>
-<b>Mind:</b> ${entry.mind}<br>
-<b>Heart:</b> ${entry.heart}<br>
-<b>Soul:</b> ${entry.soul}<br>
-<b>Entry:</b> ${entry.diaryEntry}<br>
-<b>Gratitude:</b> ${entry.gratitude}<br>
-<b>Kindness:</b> ${entry.kindness}<br>
-<b>Commitments:</b> ${entry.commitments}<br>
-<b>Goals:</b> ${entry.goals}`;
+
+const datePart = `
+<div class="entry-date">
+<b>${entry.date}</b>
+<span class="pill-label">Reflections</span>
+</div>
+`;
+
+const values = entry.values && entry.values.length
+? entry.values.join(', ')
+: '—';
+
+div.innerHTML =
+datePart +
+`<b>Values:</b> ${values}<br>
+<b>Body:</b> ${entry.body || ''}<br>
+<b>Mind:</b> ${entry.mind || ''}<br>
+<b>Heart:</b> ${entry.heart || ''}<br>
+<b>Soul:</b> ${entry.soul || ''}<br><br>
+<b>Entry:</b> ${entry.diaryEntry || ''}<br><br>
+<b>Gratitude:</b> ${entry.gratitude || ''}<br>
+<b>Kindness:</b> ${entry.kindness || ''}<br>
+<b>Commitments:</b> ${entry.commitments || ''}<br>
+<b>Goals:</b> ${entry.goals || ''}`;
+
 entriesDiv.appendChild(div);
 });
 }
 
-form.onsubmit = function(e) {
+form.onsubmit = function (e) {
 e.preventDefault();
 const data = new FormData(form);
 
@@ -217,9 +588,8 @@ alert("Today's entry has been saved!");
 };
 
 loadEntries();
-</script>
 
-<script>
+// Service worker registration (for PWA/offline)
 if ('serviceWorker' in navigator) {
 navigator.serviceWorker.register('sw.js');
 }
