@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Diary 2026</title>
-
     <style>
         :root {
             color-scheme: light dark;
@@ -20,15 +19,15 @@
             }
         }
         body { font-family: Arial, sans-serif; margin: 0; background: var(--bg); color: var(--text); padding-bottom: 50px; }
-        #lockScreen { position: fixed; inset: 0; background: radial-gradient(circle at top, #1d4ed8 0, #020617 55%); color: #e5e7eb; display: flex; align-items: center; justify-content: center; padding: 2rem 1rem; z-index: 1000; }
-        #lockInner { width: 100%; max-width: 360px; background: rgba(15, 23, 42, 0.9); border-radius: 18px; padding: 1.5rem 1.3rem 1.7rem; border: 1px solid rgba(148, 163, 184, 0.5); }
-        #pinInput { width: 100%; font-size: 1.4rem; padding: 0.65rem; text-align: center; border-radius: 10px; border: 1px solid #4b5563; background: #020617; color: #e5e7eb; margin-bottom: 0.75rem; }
+        #lockScreen { position: fixed; inset: 0; background: radial-gradient(circle at top, #1d4ed8 0, #020617 55%); color: #e5e7eb; display: flex; align-items: center; justify-content: center; z-index: 1000; }
+        #lockInner { width: 90%; max-width: 360px; background: rgba(15, 23, 42, 0.9); border-radius: 18px; padding: 1.5rem; border: 1px solid rgba(148, 163, 184, 0.5); }
+        #pinInput { width: 100%; font-size: 1.4rem; padding: 0.6rem; text-align: center; border-radius: 10px; border: 1px solid #4b5563; background: #020617; color: #e5e7eb; margin-bottom: 10px; }
         #app { display: none; }
         .container { max-width: 500px; margin: 0 auto; padding: 1em; }
         .section { background: var(--bg-section); border-radius: 10px; padding: 1.2em; margin-bottom: 1.2em; box-shadow: 0 2px 10px var(--shadow); border: 1px solid var(--border-soft); }
         h2 { color: var(--accent); margin-top: 0; font-family: Georgia, serif; font-size: 1.3rem; border-bottom: 1px solid var(--border-soft); padding-bottom: 5px; }
-        h3 { font-size: 1rem; margin-bottom: 5px; color: var(--accent); opacity: 0.9; }
-        label { display: block; margin: 8px 0; font-size: 0.95rem; line-height: 1.4; }
+        h3 { font-size: 0.9rem; color: var(--muted); text-transform: uppercase; margin-top: 15px; margin-bottom: 5px; }
+        label { display: block; margin: 8px 0; font-size: 0.95rem; }
         textarea, input[type="text"] { width: 100%; padding: 0.6em; border-radius: 6px; border: 1px solid var(--border-soft); background: var(--bg); color: var(--text); box-sizing: border-box; margin-bottom: 10px; }
         button { background: var(--accent); color: #fff; border: none; padding: 1em; border-radius: 8px; font-size: 1.1em; cursor: pointer; width: 100%; margin-top: 10px; }
         .btn-export { background: transparent; border: 2px solid var(--accent); color: var(--accent); margin-top: 2em; }
@@ -36,57 +35,59 @@
         .mood-options { display: flex; justify-content: space-around; font-size: 1.8rem; margin: 10px 0; }
         .mood-option { cursor: pointer; opacity: 0.3; transition: 0.2s; }
         .mood-option.selected { opacity: 1; transform: scale(1.2); }
-        .helper { font-size: 0.8rem; color: var(--muted); font-style: italic; margin-bottom: 10px; }
     </style>
 </head>
 <body>
 
 <div id="lockScreen">
     <div id="lockInner">
-        <h1 style="text-align:center; color:white;">My Diary</h1>
+        <h1 style="text-align:center;">My Diary</h1>
         <div id="lockModeLabel" style="text-align:center; margin-bottom:10px;">Enter PIN</div>
-        <input id="pinInput" type="password" maxlength="4" inputmode="numeric" placeholder="••••">
+        <input id="pinInput" type="password" maxlength="4" inputmode="numeric">
         <button id="btnConfirmPin">Unlock</button>
         <button id="btnResetPin" style="background:none; border:1px solid #444; margin-top:5px; font-size:0.8rem;">Reset PIN</button>
-        <div id="lockError" style="color:#ff6b6b; text-align:center; margin-top:10px;"></div>
     </div>
 </div>
 
 <div id="app">
     <div class="container">
-        <div id="todayDate" style="text-align:center; font-weight:bold; color:var(--muted);"></div>
-        <div id="quote" style="text-align:center; font-style:italic; margin: 15px 0; color:var(--muted); padding: 0 10px;"></div>
+        <div id="todayDate" style="text-align:center; font-weight:bold;"></div>
+        <div id="quote" style="text-align:center; font-style:italic; margin: 15px 0;"></div>
 
         <form id="diaryForm">
-            <!-- COMMITMENTS BLOCK -->
+            <!-- COMMITMENTS -->
             <div class="section">
                 <h2>Commitments</h2>
-                
                 <h3>Communication</h3>
-                <label><input type="checkbox" name="comm_listen"> Understand -> <strong>Did I Listen?</strong></label>
-                <label><input type="checkbox" name="comm_assert"> Be understood -> <strong>Did I Assert?</strong></label>
-                <label><input type="checkbox" name="comm_roadblocks"> No roadblocks or 5C’s</label>
-                
-                <h3>Action</h3>
+                <label><input type="checkbox" name="comm_listen"> Understand -> Did I Listen?</label>
+                <label><input type="checkbox" name="comm_assert"> Be understood -> Did I Assert?</label>
+                <label><input type="checkbox" name="comm_road"> No roadblocks or 5C’s</label>
+                <h3>Action & Collaboration</h3>
                 <label><input type="checkbox" name="act_space"> Did I use the space?</label>
                 <label><input type="checkbox" name="act_assume"> I did not assume</label>
-                
-                <h3>Collaboration</h3>
-                <label><input type="checkbox" name="collab"> In relations & In agreements</label>
-                
+                <label><input type="checkbox" name="collab"> Relations & Agreements</label>
                 <h3>Leadership</h3>
-                <label><input type="checkbox" name="lead"> By example</label>
-                <label><input type="checkbox" name="lead_help"> By helping others</label>
+                <label><input type="checkbox" name="lead_ex"> By example</label>
+                <label><input type="checkbox" name="lead_help"> By helping</label>
             </div>
 
             <!-- VALUES -->
             <div class="section">
                 <h2>Values</h2>
-                <label><input type="checkbox" name="val1"> Fearlessness & Respect</label>
-                <label><input type="checkbox" name="val2"> Gratitude & Sincerity</label>
-                <label><input type="checkbox" name="val3"> Humility & Trustworthiness</label>
-                <label><input type="checkbox" name="val4"> Love & Hope</label>
-                <label><input type="checkbox" name="val5"> Perform & Produce</label>
+                <label><input type="checkbox" name="v1"> Fearlessness & Respect</label>
+                <label><input type="checkbox" name="v2"> Gratitude & Sincerity</label>
+                <label><input type="checkbox" name="v3"> Humility & Trustworthiness</label>
+                <label><input type="checkbox" name="v4"> Love & Hope</label>
+                <label><input type="checkbox" name="v5"> Perform & Produce</label>
+            </div>
+
+            <!-- FITNESS -->
+            <div class="section">
+                <h2>Fitness</h2>
+                <label>Body</label><input type="text" name="fit_body">
+                <label>Mind</label><input type="text" name="fit_mind">
+                <label>Heart</label><input type="text" name="fit_heart">
+                <label>Soul</label><input type="text" name="fit_soul">
             </div>
 
             <!-- MOOD -->
@@ -102,10 +103,19 @@
                 <input type="hidden" name="mood" id="moodInput">
             </div>
 
-            <!-- ENTRY -->
+            <!-- EFFECTIVENESS / GRATITUDE -->
             <div class="section">
-                <h2>Daily Reflection</h2>
-                <textarea name="diaryEntry" rows="5" placeholder="What's on your mind?"></textarea>
+                <h2>Effectiveness</h2>
+                <label>Gratitude 1</label><input type="text" name="grat1">
+                <label>Gratitude 2</label><input type="text" name="grat2">
+                <label>Gratitude 3</label><input type="text" name="grat3">
+                <label>Kindness</label><textarea name="kindness" rows="2"></textarea>
+                <label>Goals</label><textarea name="goals" rows="2"></textarea>
+            </div>
+
+            <div class="section">
+                <h2>Reflection</h2>
+                <textarea name="diaryEntry" rows="4"></textarea>
             </div>
 
             <button type="submit">Save Entry</button>
@@ -114,78 +124,47 @@
         <div class="history">
             <h2>History</h2>
             <div id="entries"></div>
-            <button type="button" class="btn-export" onclick="exportToTextFile()">Export Diary to .txt File</button>
+            <button type="button" class="btn-export" onclick="exportToTextFile()">Save Diary to .txt File</button>
         </div>
     </div>
 </div>
 
 <script>
-    const PIN_KEY = "diaryPin_v2";
-    const ENTRIES_KEY = "diaryEntries_v2";
+    const PIN_KEY = "diaryPin_v3";
+    const ENTRIES_KEY = "diaryEntries_v3";
 
-    // --- LOCK LOGIC ---
     function initLock() {
         const stored = localStorage.getItem(PIN_KEY);
-        document.getElementById("lockModeLabel").textContent = stored ? "Enter PIN" : "Setup: Choose a 4-digit PIN";
-        
         document.getElementById("btnConfirmPin").onclick = () => {
             const entered = document.getElementById("pinInput").value;
-            if (entered.length !== 4) { alert("PIN must be 4 digits"); return; }
-            if (!stored) {
-                localStorage.setItem(PIN_KEY, entered);
-                unlock();
-            } else if (entered === stored) {
-                unlock();
-            } else {
-                document.getElementById("lockError").textContent = "Incorrect PIN";
-            }
+            if (!stored) { localStorage.setItem(PIN_KEY, entered); unlock(); }
+            else if (entered === stored) { unlock(); }
+            else { alert("Wrong PIN"); }
         };
-
-        document.getElementById("btnResetPin").onclick = () => {
-            if(confirm("Reset your PIN?")) {
-                localStorage.removeItem(PIN_KEY);
-                location.reload();
-            }
-        };
+        document.getElementById("btnResetPin").onclick = () => { if(confirm("Reset PIN?")) { localStorage.removeItem(PIN_KEY); location.reload(); } };
     }
 
-    function unlock() {
-        document.getElementById("lockScreen").style.display = "none";
-        document.getElementById("app").style.display = "block";
-        displayEntries();
-    }
+    function unlock() { document.getElementById("lockScreen").style.display = "none"; document.getElementById("app").style.display = "block"; displayEntries(); }
 
-    // --- DIARY LOGIC ---
-    function setMood(val, el) {
+    function setMood(val, el) { 
         document.getElementById("moodInput").value = val;
-        document.querySelectorAll('.mood-option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('.mood-option').forEach(o => o.classList.remove('selected'));
         el.classList.add('selected');
     }
 
     document.getElementById("diaryForm").onsubmit = (e) => {
         e.preventDefault();
         const fd = new FormData(e.target);
-        
-        // Collect checked commitments
-        let checks = [];
-        if(fd.get('comm_listen')) checks.push("Listened");
-        if(fd.get('comm_assert')) checks.push("Asserted");
-        if(fd.get('act_space')) checks.push("Used Space");
-        if(fd.get('lead')) checks.push("Lead by Example");
-
         const entry = {
             date: new Date().toLocaleString(),
-            mood: fd.get('mood') || "N/A",
-            text: fd.get('diaryEntry') || "(No text)",
-            highlights: checks.join(', ')
+            mood: fd.get('mood'),
+            grat: [fd.get('grat1'), fd.get('grat2'), fd.get('grat3')].filter(Boolean).join(' | '),
+            text: fd.get('diaryEntry')
         };
-        
         const entries = JSON.parse(localStorage.getItem(ENTRIES_KEY) || "[]");
         entries.unshift(entry);
         localStorage.setItem(ENTRIES_KEY, JSON.stringify(entries));
-        
         e.target.reset();
-        document.querySelectorAll('.mood-option').forEach(opt => opt.classList.remove('selected'));
         displayEntries();
         alert("Saved!");
     };
@@ -194,42 +173,29 @@
         const entries = JSON.parse(localStorage.getItem(ENTRIES_KEY) || "[]");
         document.getElementById("entries").innerHTML = entries.map(e => `
             <div class="entry">
-                <strong>${e.date} | Mood: ${e.mood}</strong><br>
-                ${e.highlights ? `<small>Commitments: ${e.highlights}</small><br>` : ''}
-                <p>${e.text}</p>
+                <strong>${e.date} ${e.mood || ''}</strong><br>
+                ${e.grat ? `<small>Grateful for: ${e.grat}</small><br>` : ''}
+                ${e.text}
             </div>
         `).join('');
     }
 
     function exportToTextFile() {
         const entries = JSON.parse(localStorage.getItem(ENTRIES_KEY) || "[]");
-        if (entries.length === 0) return alert("Nothing to export");
-
-        let content = "MY DIARY\n\n";
-        entries.forEach(e => {
-            content += `${e.date}\nMood: ${e.mood}\nCommitments: ${e.highlights}\nNote: ${e.text}\n\n---\n\n`;
-        });
-
+        let content = "MY DIARY EXPORT\n\n";
+        entries.forEach(e => { content += `${e.date}\nMood: ${e.mood}\nGratitude: ${e.grat}\nEntry: ${e.text}\n\n---\n\n`; });
         const blob = new Blob([content], { type: 'text/plain' });
         const url = URL.createObjectURL(blob);
         const link = document.createElement('a');
         link.href = url;
-        link.download = `diary_${new Date().toISOString().split('T')[0]}.txt`;
+        link.download = `diary_backup.txt`;
         link.click();
-        URL.revokeObjectURL(url);
     }
 
-    // Run on Load
     initLock();
     document.getElementById("todayDate").textContent = new Date().toDateString();
-    const quotes = [
-        "Seek, find, and make a decisive impact!",
-        "Tough on results & gentle with people.",
-        "I promote equality, tolerance, and sound judgment.",
-        "Can do & do it attitude!"
-    ];
+    const quotes = ["Seek, find, impact!", "Tough on results, gentle with people.", "Can do attitude!"];
     document.getElementById("quote").textContent = quotes[Math.floor(Math.random()*quotes.length)];
 </script>
-
 </body>
 </html>
