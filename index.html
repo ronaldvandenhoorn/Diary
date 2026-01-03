@@ -1,499 +1,234 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>My Diary</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Diary 2026</title>
 
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#2a7ae2">
-
-<style>
-:root {
-color-scheme: light dark;
---bg: #f8f8fa;
---bg-section: #ffffff;
---bg-entry: #eaf3ff;
---text: #222222;
---muted: #555555;
---accent: #2a7ae2;
---shadow: #00000011;
---border-soft: #d0d7e2;
-}
-
-@media (prefers-color-scheme: dark) {
-:root {
---bg: #0f172a;
---bg-section: #111827;
---bg-entry: #1e293b;
---text: #e5e7eb;
---muted: #9ca3af;
---accent: #60a5fa;
---shadow: #00000066;
---border-soft: #374151;
-}
-}
-
-body {
-font-family: Arial, sans-serif;
-margin: 0;
-background: var(--bg);
-color: var(--text);
-}
-
-/* PIN LOCK */
-#lockScreen {
-position: fixed;
-inset: 0;
-background: radial-gradient(circle at top, #1d4ed8 0, #020617 55%);
-color: #e5e7eb;
-display: flex;
-align-items: center;
-justify-content: center;
-padding: 2rem 1rem;
-z-index: 1000;
-}
-
-#lockInner {
-width: 100%;
-max-width: 360px;
-background: rgba(15, 23, 42, 0.9);
-border-radius: 18px;
-padding: 1.5rem 1.3rem 1.7rem;
-box-shadow: 0 20px 40px #000000aa;
-border: 1px solid rgba(148, 163, 184, 0.5);
-}
-
-#lockTitle {
-font-family: Georgia, serif;
-font-size: 1.6rem;
-text-align: center;
-margin: 0 0 0.25rem;
-}
-
-#lockSubtitle {
-text-align: center;
-color: #9ca3af;
-margin-bottom: 1.25rem;
-}
-
-#pinInput {
-width: 100%;
-font-size: 1.4rem;
-padding: 0.65rem 0.75rem;
-text-align: center;
-border-radius: 10px;
-border: 1px solid #4b5563;
-background: #020617;
-color: #e5e7eb;
-letter-spacing: 0.3em;
-font-weight: bold;
-margin-bottom: 0.75rem;
-}
-
-#lockButtons {
-display: flex;
-gap: 0.75rem;
-}
-
-.lock-btn {
-flex: 1;
-border-radius: 999px;
-padding: 0.55rem 0.75rem;
-border: none;
-cursor: pointer;
-}
-
-#btnConfirmPin {
-background: linear-gradient(135deg, #2563eb, #38bdf8);
-color: #fff;
-}
-
-#btnResetPin {
-background: transparent;
-color: #9ca3af;
-border: 1px solid #4b5563;
-}
-
-#app {
-display: none;
-}
-
-.container {
-max-width: 500px;
-margin: 0 auto;
-padding: 1em;
-}
-
-h1, h2, h3 {
-color: var(--accent);
-font-family: Georgia, serif;
-}
-
-h1 {
-text-align: center;
-}
-
-#todayDate {
-text-align: center;
-color: var(--muted);
-margin-bottom: 0.7em;
-font-family: Georgia, serif;
-}
-
-.quote {
-font-style: italic;
-color: var(--muted);
-margin-bottom: 1em;
-padding: 0.75em;
-background: var(--bg-section);
-border-radius: 6px;
-text-align: center;
-}
-
-.section {
-background: var(--bg-section);
-border-radius: 10px;
-padding: 1em;
-margin-bottom: 1em;
-box-shadow: 0 2px 10px var(--shadow);
-border: 1px solid var(--border-soft);
-}
-
-.helper-text {
-font-size: 0.85em;
-color: var(--muted);
-margin-top: -0.4em;
-margin-bottom: 0.8em;
-}
-
-label {
-font-weight: bold;
-margin-top: 0.9em;
-display: block;
-}
-
-textarea,
-input[type="text"] {
-width: 100%;
-padding: 0.5em;
-border-radius: 6px;
-border: 1px solid var(--border-soft);
-background: var(--bg);
-color: var(--text);
-margin-bottom: 0.8em;
-}
-
-.mood-options {
-display: flex;
-justify-content: space-between;
-margin-top: 0.5em;
-font-size: 1.8rem;
-cursor: pointer;
-}
-
-.mood-option {
-opacity: 0.5;
-transition: 0.2s;
-}
-
-.mood-option.selected {
-opacity: 1;
-transform: scale(1.2);
-}
-
-button {
-background: var(--accent);
-color: #fff;
-border: none;
-padding: 1em 1.5em;
-border-radius: 8px;
-font-size: 1.1em;
-cursor: pointer;
-width: 100%;
-margin-top: 1em;
-}
-
-.entry {
-background: var(--bg-entry);
-border-radius: 6px;
-padding: 0.7em;
-margin-bottom: 1em;
-border: 1px solid var(--border-soft);
-}
-</style>
+    <style>
+        :root {
+            color-scheme: light dark;
+            --bg: #f8f8fa; --bg-section: #ffffff; --bg-entry: #eaf3ff;
+            --text: #222222; --muted: #555555; --accent: #2a7ae2;
+            --shadow: #00000011; --border-soft: #d0d7e2;
+        }
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg: #0f172a; --bg-section: #111827; --bg-entry: #1e293b;
+                --text: #e5e7eb; --muted: #9ca3af; --accent: #60a5fa;
+                --shadow: #00000066; --border-soft: #374151;
+            }
+        }
+        body { font-family: Arial, sans-serif; margin: 0; background: var(--bg); color: var(--text); padding-bottom: 50px; }
+        #lockScreen { position: fixed; inset: 0; background: radial-gradient(circle at top, #1d4ed8 0, #020617 55%); color: #e5e7eb; display: flex; align-items: center; justify-content: center; padding: 2rem 1rem; z-index: 1000; }
+        #lockInner { width: 100%; max-width: 360px; background: rgba(15, 23, 42, 0.9); border-radius: 18px; padding: 1.5rem 1.3rem 1.7rem; border: 1px solid rgba(148, 163, 184, 0.5); }
+        #pinInput { width: 100%; font-size: 1.4rem; padding: 0.65rem; text-align: center; border-radius: 10px; border: 1px solid #4b5563; background: #020617; color: #e5e7eb; margin-bottom: 0.75rem; }
+        #app { display: none; }
+        .container { max-width: 500px; margin: 0 auto; padding: 1em; }
+        .section { background: var(--bg-section); border-radius: 10px; padding: 1.2em; margin-bottom: 1.2em; box-shadow: 0 2px 10px var(--shadow); border: 1px solid var(--border-soft); }
+        h2 { color: var(--accent); margin-top: 0; font-family: Georgia, serif; font-size: 1.3rem; border-bottom: 1px solid var(--border-soft); padding-bottom: 5px; }
+        h3 { font-size: 1rem; margin-bottom: 5px; color: var(--accent); opacity: 0.9; }
+        label { display: block; margin: 8px 0; font-size: 0.95rem; line-height: 1.4; }
+        textarea, input[type="text"] { width: 100%; padding: 0.6em; border-radius: 6px; border: 1px solid var(--border-soft); background: var(--bg); color: var(--text); box-sizing: border-box; margin-bottom: 10px; }
+        button { background: var(--accent); color: #fff; border: none; padding: 1em; border-radius: 8px; font-size: 1.1em; cursor: pointer; width: 100%; margin-top: 10px; }
+        .btn-export { background: transparent; border: 2px solid var(--accent); color: var(--accent); margin-top: 2em; }
+        .entry { background: var(--bg-entry); border-radius: 6px; padding: 0.7em; margin-bottom: 1em; border: 1px solid var(--border-soft); font-size: 0.9rem; }
+        .mood-options { display: flex; justify-content: space-around; font-size: 1.8rem; margin: 10px 0; }
+        .mood-option { cursor: pointer; opacity: 0.3; transition: 0.2s; }
+        .mood-option.selected { opacity: 1; transform: scale(1.2); }
+        .helper { font-size: 0.8rem; color: var(--muted); font-style: italic; margin-bottom: 10px; }
+    </style>
 </head>
-
 <body>
 
-<!-- PIN LOCK -->
 <div id="lockScreen">
-<div id="lockInner">
-<h1 id="lockTitle">My Diary</h1>
-<div id="lockSubtitle">Protected with a personal PIN</div>
-
-<div id="lockModeLabel">Set a new 4-digit PIN</div>
-<input id="pinInput" type="password" maxlength="4" inputmode="numeric" placeholder="••••">
-
-<div id="lockButtons">
-<button id="btnConfirmPin" class="lock-btn">Confirm</button>
-<button id="btnResetPin" class="lock-btn">Reset PIN</button>
+    <div id="lockInner">
+        <h1 style="text-align:center; color:white;">My Diary</h1>
+        <div id="lockModeLabel" style="text-align:center; margin-bottom:10px;">Enter PIN</div>
+        <input id="pinInput" type="password" maxlength="4" inputmode="numeric" placeholder="••••">
+        <button id="btnConfirmPin">Unlock</button>
+        <button id="btnResetPin" style="background:none; border:1px solid #444; margin-top:5px; font-size:0.8rem;">Reset PIN</button>
+        <div id="lockError" style="color:#ff6b6b; text-align:center; margin-top:10px;"></div>
+    </div>
 </div>
 
-<div id="lockError"></div>
-</div>
-</div>
-
-<!-- APP -->
 <div id="app">
-<div class="container">
+    <div class="container">
+        <div id="todayDate" style="text-align:center; font-weight:bold; color:var(--muted);"></div>
+        <div id="quote" style="text-align:center; font-style:italic; margin: 15px 0; color:var(--muted); padding: 0 10px;"></div>
 
-<h1>My Diary</h1>
-<div id="todayDate"></div>
-<div class="quote" id="quote"></div>
+        <form id="diaryForm">
+            <!-- COMMITMENTS BLOCK -->
+            <div class="section">
+                <h2>Commitments</h2>
+                
+                <h3>Communication</h3>
+                <label><input type="checkbox" name="comm_listen"> Understand -> <strong>Did I Listen?</strong></label>
+                <label><input type="checkbox" name="comm_assert"> Be understood -> <strong>Did I Assert?</strong></label>
+                <label><input type="checkbox" name="comm_roadblocks"> No roadblocks or 5C’s</label>
+                
+                <h3>Action</h3>
+                <label><input type="checkbox" name="act_space"> Did I use the space?</label>
+                <label><input type="checkbox" name="act_assume"> I did not assume</label>
+                
+                <h3>Collaboration</h3>
+                <label><input type="checkbox" name="collab"> In relations & In agreements</label>
+                
+                <h3>Leadership</h3>
+                <label><input type="checkbox" name="lead"> By example</label>
+                <label><input type="checkbox" name="lead_help"> By helping others</label>
+            </div>
 
-<form id="diaryForm">
+            <!-- VALUES -->
+            <div class="section">
+                <h2>Values</h2>
+                <label><input type="checkbox" name="val1"> Fearlessness & Respect</label>
+                <label><input type="checkbox" name="val2"> Gratitude & Sincerity</label>
+                <label><input type="checkbox" name="val3"> Humility & Trustworthiness</label>
+                <label><input type="checkbox" name="val4"> Love & Hope</label>
+                <label><input type="checkbox" name="val5"> Perform & Produce</label>
+            </div>
 
-<!-- VALUES -->
-<div class="section">
-<h2>Values</h2>
-<div class="helper-text">Did I live up to my values?</div>
+            <!-- MOOD -->
+            <div class="section">
+                <h2>Mood</h2>
+                <div class="mood-options">
+                    <span class="mood-option" onclick="setMood('😄', this)">😄</span>
+                    <span class="mood-option" onclick="setMood('🙂', this)">🙂</span>
+                    <span class="mood-option" onclick="setMood('😐', this)">😐</span>
+                    <span class="mood-option" onclick="setMood('🙁', this)">🙁</span>
+                    <span class="mood-option" onclick="setMood('😢', this)">😢</span>
+                </div>
+                <input type="hidden" name="mood" id="moodInput">
+            </div>
 
-<label><input type="checkbox" name="values" value="Fearlessness & Respect"> Fearlessness & Respect</label>
-<label><input type="checkbox" name="values" value="Gratitude & Sincerity"> Gratitude & Sincerity</label>
-<label><input type="checkbox" name="values" value="Humility & Trustworthiness"> Humility & Trustworthiness</label>
-<label><input type="checkbox" name="values" value="Love & Hope"> Love & Hope</label>
-<label><input type="checkbox" name="values" value="Perform & Produce"> Perform & Produce</label>
-</div>
+            <!-- ENTRY -->
+            <div class="section">
+                <h2>Daily Reflection</h2>
+                <textarea name="diaryEntry" rows="5" placeholder="What's on your mind?"></textarea>
+            </div>
 
-<!-- FITNESS -->
-<div class="section">
-<h2>Fitness</h2>
-<div class="helper-text">Did I stay fit?</div>
+            <button type="submit">Save Entry</button>
+        </form>
 
-<label>Body</label>
-<input type="text" name="body">
-
-<label>Mind</label>
-<input type="text" name="mind">
-
-<label>Heart</label>
-<input type="text" name="heart">
-
-<label>Soul</label>
-<input type="text" name="soul">
-</div>
-
-<!-- MOOD -->
-<div class="section">
-<h2>Mood</h2>
-<div class="helper-text">How was my mood?</div>
-
-<div class="mood-options">
-<span class="mood-option" data-mood="😄">😄</span>
-<span class="mood-option" data-mood="🙂">🙂</span>
-<span class="mood-option" data-mood="😐">😐</span>
-<span class="mood-option" data-mood="🙁">🙁</span>
-<span class="mood-option" data-mood="😢">😢</span>
-</div>
-<input type="hidden" name="mood" id="moodInput">
-</div>
-
-<!-- ENTRY -->
-<div class="section">
-<h2>Entry</h2>
-<textarea name="diaryEntry" rows="4"></textarea>
-</div>
-
-<!-- EFFECTIVENESS -->
-<div class="section">
-<h2>Effectiveness</h2>
-
-<label>Gratitude 1</label>
-<input type="text" name="grat1">
-
-<label>Gratitude 2</label>
-<input type="text" name="grat2">
-
-<label>Gratitude 3</label>
-<input type="text" name="grat3">
-
-<label>Kindness</label>
-<textarea name="kindness" rows="2"></textarea>
-
-<label>Commitments</label>
-<textarea name="commitments" rows="2"></textarea>
-
-<label>Goals</label>
-<textarea name="goals" rows="2"></textarea>
-</div>
-
-<button type="submit">Save today's entry</button>
-</form>
-
-<div class="history">
-<h2>Previous Entries</h2>
-<div id="entries"></div>
-</div>
-
-</div>
+        <div class="history">
+            <h2>History</h2>
+            <div id="entries"></div>
+            <button type="button" class="btn-export" onclick="exportToTextFile()">Export Diary to .txt File</button>
+        </div>
+    </div>
 </div>
 
 <script>
-/* PIN LOCK */
-const PIN_KEY = "diaryPin_v1";
-const lockScreen = document.getElementById("lockScreen");
-const app = document.getElementById("app");
-const pinInput = document.getElementById("pinInput");
-const btnConfirmPin = document.getElementById("btnConfirmPin");
-const btnResetPin = document.getElementById("btnResetPin");
-const lockModeLabel = document.getElementById("lockModeLabel");
-const lockError = document.getElementById("lockError");
+    const PIN_KEY = "diaryPin_v2";
+    const ENTRIES_KEY = "diaryEntries_v2";
 
-function unlock() {
-lockScreen.style.display = "none";
-app.style.display = "block";
-}
+    // --- LOCK LOGIC ---
+    function initLock() {
+        const stored = localStorage.getItem(PIN_KEY);
+        document.getElementById("lockModeLabel").textContent = stored ? "Enter PIN" : "Setup: Choose a 4-digit PIN";
+        
+        document.getElementById("btnConfirmPin").onclick = () => {
+            const entered = document.getElementById("pinInput").value;
+            if (entered.length !== 4) { alert("PIN must be 4 digits"); return; }
+            if (!stored) {
+                localStorage.setItem(PIN_KEY, entered);
+                unlock();
+            } else if (entered === stored) {
+                unlock();
+            } else {
+                document.getElementById("lockError").textContent = "Incorrect PIN";
+            }
+        };
 
-function initLock() {
-const stored = localStorage.getItem(PIN_KEY);
-lockModeLabel.textContent = stored ? "Enter your 4-digit PIN" : "Set a new 4-digit PIN";
+        document.getElementById("btnResetPin").onclick = () => {
+            if(confirm("Reset your PIN?")) {
+                localStorage.removeItem(PIN_KEY);
+                location.reload();
+            }
+        };
+    }
 
-btnConfirmPin.onclick = () => {
-const entered = pinInput.value.trim();
-if (entered.length !== 4) {
-lockError.textContent = "PIN must be 4 digits.";
-return;
-}
+    function unlock() {
+        document.getElementById("lockScreen").style.display = "none";
+        document.getElementById("app").style.display = "block";
+        displayEntries();
+    }
 
-const saved = localStorage.getItem(PIN_KEY);
+    // --- DIARY LOGIC ---
+    function setMood(val, el) {
+        document.getElementById("moodInput").value = val;
+        document.querySelectorAll('.mood-option').forEach(opt => opt.classList.remove('selected'));
+        el.classList.add('selected');
+    }
 
-if (!saved) {
-localStorage.setItem(PIN_KEY, entered);
-unlock();
-} else {
-if (entered === saved) unlock();
-else lockError.textContent = "Incorrect PIN.";
-}
-};
+    document.getElementById("diaryForm").onsubmit = (e) => {
+        e.preventDefault();
+        const fd = new FormData(e.target);
+        
+        // Collect checked commitments
+        let checks = [];
+        if(fd.get('comm_listen')) checks.push("Listened");
+        if(fd.get('comm_assert')) checks.push("Asserted");
+        if(fd.get('act_space')) checks.push("Used Space");
+        if(fd.get('lead')) checks.push("Lead by Example");
 
-btnResetPin.onclick = () => {
-localStorage.removeItem(PIN_KEY);
-lockModeLabel.textContent = "Set a new 4-digit PIN";
-pinInput.value = "";
-};
-}
+        const entry = {
+            date: new Date().toLocaleString(),
+            mood: fd.get('mood') || "N/A",
+            text: fd.get('diaryEntry') || "(No text)",
+            highlights: checks.join(', ')
+        };
+        
+        const entries = JSON.parse(localStorage.getItem(ENTRIES_KEY) || "[]");
+        entries.unshift(entry);
+        localStorage.setItem(ENTRIES_KEY, JSON.stringify(entries));
+        
+        e.target.reset();
+        document.querySelectorAll('.mood-option').forEach(opt => opt.classList.remove('selected'));
+        displayEntries();
+        alert("Saved!");
+    };
 
-initLock();
+    function displayEntries() {
+        const entries = JSON.parse(localStorage.getItem(ENTRIES_KEY) || "[]");
+        document.getElementById("entries").innerHTML = entries.map(e => `
+            <div class="entry">
+                <strong>${e.date} | Mood: ${e.mood}</strong><br>
+                ${e.highlights ? `<small>Commitments: ${e.highlights}</small><br>` : ''}
+                <p>${e.text}</p>
+            </div>
+        `).join('');
+    }
 
-/* DATE */
-document.getElementById("todayDate").textContent =
-new Date().toLocaleDateString("en-US", {
-weekday: "long",
-year: "numeric",
-month: "long",
-day: "numeric"
-});
+    function exportToTextFile() {
+        const entries = JSON.parse(localStorage.getItem(ENTRIES_KEY) || "[]");
+        if (entries.length === 0) return alert("Nothing to export");
 
-/* QUOTES */
-const quotes = [
-"Seek, find, and make a decisive impact to brighten the day and improve the world!",
-"I promote equality, tolerance, and sound judgment – humbly and responsibly.",
-"I pursue my dream persistently despite adversity, pressure, and criticism.",
-"Tough on results & gentle with people.",
-"True to myself & expressing my feelings.",
-"Can do & do it attitude!"
-];
-document.getElementById("quote").textContent =
-quotes[Math.floor(Math.random() * quotes.length)];
+        let content = "MY DIARY\n\n";
+        entries.forEach(e => {
+            content += `${e.date}\nMood: ${e.mood}\nCommitments: ${e.highlights}\nNote: ${e.text}\n\n---\n\n`;
+        });
 
-/* MOOD TRACKER */
-const moodOptions = document.querySelectorAll(".mood-option");
-const moodInput = document.getElementById("moodInput");
+        const blob = new Blob([content], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `diary_${new Date().toISOString().split('T')[0]}.txt`;
+        link.click();
+        URL.revokeObjectURL(url);
+    }
 
-moodOptions.forEach(opt => {
-opt.addEventListener("click", () => {
-moodOptions.forEach(o => o.classList.remove("selected"));
-opt.classList.add("selected");
-moodInput.value = opt.dataset.mood;
-});
-});
-
-/* SAVE + LOAD ENTRIES */
-const form = document.getElementById("diaryForm");
-const entriesDiv = document.getElementById("entries");
-
-function loadEntries() {
-entriesDiv.innerHTML = "";
-const entries = JSON.parse(localStorage.getItem("diaryEntries") || "[]");
-
-entries.slice().reverse().forEach(entry => {
-const div = document.createElement("div");
-div.className = "entry";
-
-div.innerHTML = `
-<b>${entry.date}</b><br>
-<b>Mood:</b> ${entry.mood || "—"}<br><br>
-<b>Values:</b> ${entry.values.join(", ")}<br>
-<b>Body:</b> ${entry.body}<br>
-<b>Mind:</b> ${entry.mind}<br>
-<b>Heart:</b> ${entry.heart}<br>
-<b>Soul:</b> ${entry.soul}<br><br>
-<b>Entry:</b> ${entry.diaryEntry}<br><br>
-<b>Gratitude:</b><br>
-1) ${entry.grat1}<br>
-2) ${entry.grat2}<br>
-3) ${entry.grat3}<br><br>
-<b>Kindness:</b> ${entry.kindness}<br>
-<b>Commitments:</b> ${entry.commitments}<br>
-<b>Goals:</b> ${entry.goals}
-`;
-
-entriesDiv.appendChild(div);
-});
-}
-
-form.onsubmit = e => {
-e.preventDefault();
-const data = new FormData(form);
-
-const entry = {
-date: new Date().toLocaleDateString("en-US", {
-weekday: "long",
-year: "numeric",
-month: "long",
-day: "numeric"
-}),
-values: data.getAll("values"),
-body: data.get("body") || "",
-mind: data.get("mind") || "",
-heart: data.get("heart") || "",
-soul: data.get("soul") || "",
-mood: data.get("mood") || "",
-diaryEntry: data.get("diaryEntry") || "",
-grat1: data.get("grat1") || "",
-grat2: data.get("grat2") || "",
-grat3: data.get("grat3") || "",
-kindness: data.get("kindness") || "",
-commitments: data.get("commitments") || "",
-goals: data.get("goals") || ""
-};
-
-const entries = JSON.parse(localStorage.getItem("diaryEntries") || "[]");
-entries.push(entry);
-localStorage.setItem("diaryEntries", JSON.stringify(entries));
-
-form.reset();
-moodOptions.forEach(o => o.classList.remove("selected"));
-loadEntries();
-alert("Today's entry has been saved!");
-};
-
-loadEntries();
-
-if ("serviceWorker" in navigator) {
-navigator.serviceWorker.register("sw.js");
-}
+    // Run on Load
+    initLock();
+    document.getElementById("todayDate").textContent = new Date().toDateString();
+    const quotes = [
+        "Seek, find, and make a decisive impact!",
+        "Tough on results & gentle with people.",
+        "I promote equality, tolerance, and sound judgment.",
+        "Can do & do it attitude!"
+    ];
+    document.getElementById("quote").textContent = quotes[Math.floor(Math.random()*quotes.length)];
 </script>
 
 </body>
