@@ -28,6 +28,7 @@
         h2 { color: var(--accent); margin-top: 0; font-family: Georgia, serif; font-size: 1.3rem; border-bottom: 1px solid var(--border-soft); padding-bottom: 5px; }
         h3 { font-size: 0.9rem; color: var(--muted); text-transform: uppercase; margin-top: 15px; margin-bottom: 5px; }
         label { display: block; margin: 8px 0; font-size: 0.95rem; }
+        .sub-label { font-size: 0.85rem; font-style: italic; color: var(--muted); font-weight: normal; }
         textarea, input[type="text"] { width: 100%; padding: 0.6em; border-radius: 6px; border: 1px solid var(--border-soft); background: var(--bg); color: var(--text); box-sizing: border-box; margin-bottom: 10px; }
         button { background: var(--accent); color: #fff; border: none; padding: 1em; border-radius: 8px; font-size: 1.1em; cursor: pointer; width: 100%; margin-top: 10px; }
         .btn-export { background: transparent; border: 2px solid var(--accent); color: var(--accent); margin-top: 2em; }
@@ -59,12 +60,12 @@
             <div class="section">
                 <h2>Commitments</h2>
                 <h3>Communication</h3>
-                <label><input type="checkbox" name="comm_listen"> Understand -> Did I Listen?</label>
-                <label><input type="checkbox" name="comm_assert"> Be understood -> Did I Assert?</label>
+                <label><input type="checkbox" name="comm_listen"> To understand -> Did I Listen?</label>
+                <label><input type="checkbox" name="comm_assert"> To be understood -> Did I Assert?</label>
                 <label><input type="checkbox" name="comm_road"> No roadblocks or 5C’s</label>
                 <h3>Action & Collaboration</h3>
                 <label><input type="checkbox" name="act_space"> Did I use the space?</label>
-                <label><input type="checkbox" name="act_assume"> I did not assume</label>
+                <label><input type="checkbox" name="act_assume"> Did I not assume</label>
                 <label><input type="checkbox" name="collab"> Relations & Agreements</label>
                 <h3>Leadership</h3>
                 <label><input type="checkbox" name="lead_ex"> By example</label>
@@ -81,13 +82,20 @@
                 <label><input type="checkbox" name="v5"> Perform & Produce</label>
             </div>
 
-            <!-- FITNESS -->
+            <!-- FITNESS (UPDATED) -->
             <div class="section">
                 <h2>Fitness</h2>
-                <label>Body</label><input type="text" name="fit_body">
-                <label>Mind</label><input type="text" name="fit_mind">
-                <label>Heart</label><input type="text" name="fit_heart">
-                <label>Soul</label><input type="text" name="fit_soul">
+                <label>Body <span class="sub-label">- Food & Exercise</span></label>
+                <input type="text" name="fit_body">
+                
+                <label>Mind <span class="sub-label">- Read & Coach</span></label>
+                <input type="text" name="fit_mind">
+                
+                <label>Heart <span class="sub-label">- Relationship & Service</span></label>
+                <input type="text" name="fit_heart">
+                
+                <label>Soul <span class="sub-label">- Journaling & Reflection</span></label>
+                <input type="text" name="fit_soul">
             </div>
 
             <!-- MOOD -->
@@ -165,6 +173,7 @@
         entries.unshift(entry);
         localStorage.setItem(ENTRIES_KEY, JSON.stringify(entries));
         e.target.reset();
+        document.querySelectorAll('.mood-option').forEach(o => o.classList.remove('selected'));
         displayEntries();
         alert("Saved!");
     };
@@ -175,21 +184,23 @@
             <div class="entry">
                 <strong>${e.date} ${e.mood || ''}</strong><br>
                 ${e.grat ? `<small>Grateful for: ${e.grat}</small><br>` : ''}
-                ${e.text}
+                ${e.text || ''}
             </div>
         `).join('');
     }
 
     function exportToTextFile() {
         const entries = JSON.parse(localStorage.getItem(ENTRIES_KEY) || "[]");
+        if (entries.length === 0) return alert("Nothing to export");
         let content = "MY DIARY EXPORT\n\n";
         entries.forEach(e => { content += `${e.date}\nMood: ${e.mood}\nGratitude: ${e.grat}\nEntry: ${e.text}\n\n---\n\n`; });
         const blob = new Blob([content], { type: 'text/plain' });
         const url = URL.createObjectURL(blob);
         const link = document.createElement('a');
         link.href = url;
-        link.download = `diary_backup.txt`;
+        link.download = `diary_backup_${new Date().toISOString().split('T')[0]}.txt`;
         link.click();
+        URL.revokeObjectURL(url);
     }
 
     initLock();
